@@ -1,0 +1,27 @@
+{
+  "name": "sandbox-extension",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "lint": "rome check .",
+    "format": "rome format . --write",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "openai": "^3.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "pnpm": "^8.1.0",
+    "rome": "^12.0.0",
+    "typescript": "^5.1.5",
+    "vite": "^4.3.9"
+  },
+  "engines": {
+    "node": "18.x",
+    "pnpm": "7.x || 8.x"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "typescript.tsdk": "node_modules/.pnpm/typescript@5.1.5/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "editor.defaultFormatter": "rome.rome",
+  "[javascript]": {
+    "editor.defaultFormatter": "rome.rome"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "rome.rome"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "rome.rome"
+  }
+}
