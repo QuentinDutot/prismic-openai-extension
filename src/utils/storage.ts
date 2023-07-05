@@ -1,15 +1,11 @@
-class Storage {
-  private key
+const setItem = (key: string, value: string) => localStorage.setItem(key, value)
+const getItem = (key: string) => localStorage.getItem(key)
+const removeItem = (key: string) => localStorage.removeItem(key)
 
-  constructor(key: string) {
-    this.key = key
-  }
+const createStorage = (key: string) => ({
+  set: (value: string) => setItem(key, value),
+  get: () => getItem(key),
+  delete: () => removeItem(key),
+})
 
-  public set = (value: string) => localStorage.setItem(this.key, value)
-
-  public get = () => localStorage.getItem(this.key)
-
-  public delete = () => localStorage.removeItem(this.key)
-}
-
-export const OpenaiApiKeyStorage = new Storage('prismic_openai_api_key')
+export const OpenaiApiKeyStorage = createStorage('prismic_openai_api_key')
