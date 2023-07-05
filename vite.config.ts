@@ -1,16 +1,9 @@
 import { defineConfig } from 'vite'
+import { crx } from '@crxjs/vite-plugin'
+import manifest from './src/manifest'
 
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        background: 'src/scripts/background.ts',
-        content: 'src/scripts/content.ts',
-        popup: 'src/scripts/popup.ts',
-      },
-      output: {
-        entryFileNames: (chunk) => `scripts/${chunk.name}.js`,
-      },
-    },
-  },
+  root: 'src',
+  build: { outDir: '../dist', emptyOutDir: true },
+  plugins: [crx({ manifest })],
 })
