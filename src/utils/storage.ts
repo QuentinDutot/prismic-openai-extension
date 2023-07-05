@@ -1,11 +1,10 @@
-const setItem = (key: string, value: string) => localStorage.setItem(key, value)
-const getItem = (key: string) => localStorage.getItem(key)
-const removeItem = (key: string) => localStorage.removeItem(key)
+type StorageType = 'local' | 'sync'
 
-const createStorage = (key: string) => ({
-  set: (value: string) => setItem(key, value),
-  get: () => getItem(key),
-  delete: () => removeItem(key),
+const createStorage = (type: StorageType, key: string) => ({
+  set: async (value: string) => new Promise<void>((resolve) => chrome.storage[type].set({ [key]: value }, resolve)),
+  get: async () =>
+    new Promise<string | undefined>((resolve) => chrome.storage[type].get([key], (result) => resolve(result[key]))),
+  remove: async () => new Promise<void>((resolve) => chrome.storage[type].remove(key, resolve)),
 })
 
-export const OpenaiApiKeyStorage = createStorage('prismic_openai_api_key')
+export const OpenaiApiKeyStorage = createStorage('sync', 'prismic_openai_api_key')

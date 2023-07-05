@@ -23,8 +23,8 @@ const onShowForm = () => {
 
   const saveButton = document.createElement('button')
   saveButton.innerText = 'Save'
-  saveButton.addEventListener('click', () => {
-    OpenaiApiKeyStorage.set(keyInput.value)
+  saveButton.addEventListener('click', async () => {
+    await OpenaiApiKeyStorage.set(keyInput.value)
 
     document.body.removeChild(keyInput)
     document.body.removeChild(saveButton)
@@ -36,8 +36,12 @@ const onShowForm = () => {
   document.body.appendChild(saveButton)
 }
 
-if (OpenaiApiKeyStorage.get()) {
-  onShowSync()
-} else {
-  onShowForm()
+const onInit = async () => {
+  if (await OpenaiApiKeyStorage.get()) {
+    onShowSync()
+  } else {
+    onShowForm()
+  }
 }
+
+onInit()

@@ -2,8 +2,8 @@ import { z } from 'zod'
 import { Configuration, OpenAIApi } from 'openai'
 import { OpenaiApiKeyStorage } from './storage'
 
-const getClient = () => {
-  const apiKey = z.string().parse(OpenaiApiKeyStorage.get())
+const getClient = async () => {
+  const apiKey = z.string().parse(await OpenaiApiKeyStorage.get())
 
   const configuration = new Configuration({
     apiKey,
@@ -14,11 +14,13 @@ const getClient = () => {
   return openai
 }
 
-const createCompletion = async (prompt: string) =>
-  await getClient().createCompletion({
+const createCompletion = async (prompt: string) => {
+  const client = await getClient()
+  return await client.createCompletion({
     model: 'text-davinci-003',
     prompt,
   })
+}
 
 const openai = {
   createCompletion,
