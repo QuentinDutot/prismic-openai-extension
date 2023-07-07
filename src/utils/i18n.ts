@@ -1,20 +1,22 @@
 import openai from './openai'
 
 export const translateText = async (input: string, lang: string) => {
-  const { data } = await openai.createCompletion(
-    [
-      `Translate in ${lang} the text: "${input}"`,
-      "Do not add new line characters where they're not present in the original text.",
-    ].join(' '),
-  )
+  console.log(`i18n before "${input}"`)
 
-  const { text, finish_reason } = data.choices[0]
+  const { data } = await openai.createChat([
+    {
+      role: 'system',
+      content: [
+        `You are an i18n tool, please translate the user input in ${lang}`,
+        'Maintain the format (slugs, plain strings, html, ...), casing and length of the original text.',
+      ].join(' '),
+    },
+    { role: 'user', content: input },
+  ])
 
-  if (finish_reason !== 'stop') {
-    // TODO
-  }
+  const translation = data.choices[0].message?.content ?? ''
 
-  const translatedText = (text ?? '').trim()
+  console.log(`i18n after "${translation}"`)
 
-  return translatedText
+  return translation
 }

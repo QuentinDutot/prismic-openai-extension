@@ -1,4 +1,4 @@
-import doSync from '../sync/sync'
+import doSync from '../sync/core'
 
 console.log('content script')
 

@@ -14,16 +14,18 @@ const getClient = async () => {
   return openai
 }
 
-const createCompletion = async (prompt: string) => {
+const createChat = async (messages: { role: 'system' | 'user'; content: string }[]) => {
   const client = await getClient()
-  return await client.createCompletion({
-    model: 'text-davinci-003',
-    prompt,
+  return await client.createChatCompletion({
+    model: 'gpt-3.5-turbo-16k',
+    messages,
   })
 }
 
 const openai = {
-  createCompletion,
+  createChat,
+  createImage: () => {},
+  createAudio: () => {},
 }
 
 export default openai
